@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🔬 五年级科学探险乐园 - 教科版下册</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --u1:#4CAF50;--u1l:#E8F5E9;--u1d:#2E7D32;
+    --u2:#2196F3;--u2l:#E3F2FD;--u2d:#1565C0;
+    --u3:#FF9800;--u3l:#FFF3E0;--u3d:#E65100;
+    --u4:#F44336;--u4l:#FFEBEE;--u4d:#C62828;
+    --bg:#f0f4f8;--card:#fff;--txt:#333;--txtl:#666;
+    --sh:0 8px 32px rgba(0,0,0,.1);--shh:0 12px 40px rgba(0,0,0,.18);
+  }
+  body{font-family:'Noto Sans SC',sans-serif;background:var(--bg);color:var(--txt);overflow-x:hidden}
+
+  /* HERO */
+  .hero{min-height:100vh;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden}
+  .hero::before{content:'';position:absolute;width:200%;height:200%;background:radial-gradient(ellipse at 20% 50%,rgba(255,255,255,.1) 0%,transparent 50%),radial-gradient(ellipse at 80% 20%,rgba(255,255,255,.08) 0%,transparent 50%);animation:hf 20s ease-in-out infinite}
+  @keyframes hf{0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(-5%,3%) rotate(2deg)}}
+  .hero-particles{position:absolute;width:100%;height:100%;overflow:hidden}
+  .particle{position:absolute;background:rgba(255,255,255,.15);border-radius:50%;animation:pf linear infinite}
+  @keyframes pf{0%{transform:translateY(100vh) rotate(0);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(-100px) rotate(720deg);opacity:0}}
+  .hero-content{position:relative;z-index:2;text-align:center;color:#fff;padding:20px}
+  .hero-icon{font-size:80px;margin-bottom:20px;animation:bn 2s ease-in-out infinite}
+  @keyframes bn{0%,100%{transform:translateY(0)}50%{transform:translateY(-20px)}}
+  .hero h1{font-size:clamp(2rem,5vw,3.5rem);font-weight:900;margin-bottom:15px;text-shadow:0 4px 20px rgba(0,0,0,.3);letter-spacing:2px}
+  .hero p{font-size:clamp(1rem,2.5vw,1.3rem);opacity:.9;max-width:600px;line-height:1.8;margin-bottom:40px}
+  .hero-btn{display:inline-block;padding:16px 48px;background:rgba(255,255,255,.2);backdrop-filter:blur(10px);border:2px solid rgba(255,255,255,.4);border-radius:50px;color:#fff;font-size:1.2rem;font-weight:700;cursor:pointer;transition:all .3s;text-decoration:none}
+  .hero-btn:hover{background:rgba(255,255,255,.35);transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,0,0,.2)}
+  .scroll-hint{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.7);animation:sb 2s ease-in-out infinite;font-size:14px;z-index:2}
+  @keyframes sb{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(10px)}}
+
+  /* NAV */
+  .unit-nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.95);backdrop-filter:blur(20px);box-shadow:0 2px 20px rgba(0,0,0,.1);display:flex;justify-content:center;flex-wrap:wrap}
+  .unit-nav-btn{padding:16px 24px;border:none;background:transparent;font-size:15px;font-weight:600;cursor:pointer;transition:all .3s;position:relative;font-family:inherit;color:var(--txtl)}
+  .unit-nav-btn::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:0;height:3px;border-radius:3px;transition:width .3s}
+  .unit-nav-btn:hover::after,.unit-nav-btn.active::after{width:60%}
+  .unit-nav-btn:hover,.unit-nav-btn.active{color:var(--txt)}
+  .unit-nav-btn[data-unit="1"]::after{background:var(--u1)}
+  .unit-nav-btn[data-unit="2"]::after{background:var(--u2)}
+  .unit-nav-btn[data-unit="3"]::after{background:var(--u3)}
+  .unit-nav-btn[data-unit="4"]::after{background:var(--u4)}
+  .unit-nav-btn[data-unit="quiz"]::after{background:#9C27B0}
+
+  /* SECTIONS */
+  .unit-section{display:none;padding:40px 20px;max-width:1200px;margin:0 auto;animation:fiu .6s ease}
+  .unit-section.active{display:block}
+  @keyframes fiu{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+  .unit-header{text-align:center;margin-bottom:40px}
+  .unit-header .unit-icon{font-size:60px;margin-bottom:15px}
+  .unit-header h2{font-size:2rem;font-weight:900;margin-bottom:10px}
+  .unit-header p{color:var(--txtl);font-size:1.05rem;max-width:600px;margin:0 auto}
+
+  /* CARDS */
+  .lessons-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:24px;margin-bottom:40px}
+  .lesson-card{background:var(--card);border-radius:20px;overflow:hidden;box-shadow:var(--sh);transition:all .4s;cursor:pointer}
+  .lesson-card:hover{transform:translateY(-8px);box-shadow:var(--shh)}
+  .lc-header{padding:24px;color:#fff;position:relative;overflow:hidden}
+  .lc-header::before{content:'';position:absolute;top:-50%;right:-50%;width:100%;height:200%;background:rgba(255,255,255,.1);border-radius:50%}
+  .lc-header h3{font-size:1.2rem;font-weight:700;position:relative;z-index:1}
+  .lc-header .lnum{font-size:3rem;font-weight:900;opacity:.3;position:absolute;right:20px;top:10px}
+  .lc-body{padding:20px 24px 24px}
+  .lc-body>p{font-size:.92rem;color:var(--txtl);line-height:1.7;margin-bottom:15px}
+  .kp{background:#f8f9fa;border-radius:12px;padding:15px;margin-bottom:15px}
+  .kp h4{font-size:.85rem;color:var(--txt);margin-bottom:8px}
+  .kp ul{list-style:none;padding:0}
+  .kp li{font-size:.82rem;color:var(--txtl);padding:4px 0 4px 18px;position:relative;line-height:1.6}
+  .kp li::before{content:'✦';position:absolute;left:0;font-size:10px}
+  .try-btn{display:inline-block;padding:10px 24px;border-radius:25px;border:none;color:#fff;font-weight:600;font-size:.9rem;cursor:pointer;transition:all .3s;font-family:inherit}
+  .try-btn:hover{transform:scale(1.05);filter:brightness(1.1)}
+  .fun-fact{background:linear-gradient(135deg,#FFF8E1,#FFF3E0);border-radius:16px;padding:20px;margin:15px 0;display:flex;align-items:flex-start;gap:12px}
+  .fun-fact-icon{font-size:1.5rem;flex-shrink:0}
+  .fun-fact p{font-size:.88rem;line-height:1.7}
+  .kb{background:linear-gradient(135deg,#f8f9fa,#e8eaf0);border-radius:16px;padding:24px;margin:20px 0;border-left:4px solid}
+  .kb h4{margin-bottom:10px;font-size:1rem}
+  .kb p{font-size:.9rem;line-height:1.8;color:var(--txtl)}
+
+  /* MODAL */
+  .modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);backdrop-filter:blur(5px);z-index:1000;align-items:center;justify-content:center;padding:20px}
+  .modal-overlay.active{display:flex}
+  .modal-content{background:#fff;border-radius:24px;width:100%;max-width:800px;max-height:90vh;overflow-y:auto;position:relative;animation:mi .4s ease}
+  @keyframes mi{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+  .modal-close{position:absolute;top:16px;right:16px;width:40px;height:40px;border-radius:50%;border:none;background:rgba(0,0,0,.08);font-size:1.2rem;cursor:pointer;z-index:10;transition:all .3s}
+  .modal-close:hover{background:rgba(0,0,0,.15)}
+  .m-header{padding:30px;border-radius:24px 24px 0 0;color:#fff}
+  .m-header h2{font-size:1.5rem;font-weight:800}
+  .m-header p{opacity:.9;margin-top:8px;font-size:.95rem}
+  .m-body{padding:30px}
+
+  /* EXPERIMENT SHARED */
+  .exp-result{background:#f0f8f0;border-radius:16px;padding:20px;text-align:center;font-size:.95rem;line-height:1.8;min-height:60px;transition:all .5s}
+  .action-btn{padding:12px 28px;border-radius:25px;border:none;color:#fff;font-family:inherit;font-weight:600;cursor:pointer;transition:all .3s;font-size:.95rem}
+  .action-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.15)}
+
+  /* SEED */
+  .seed-cups{display:flex;gap:24px;justify-content:center;flex-wrap:wrap}
+  .seed-cup{width:160px;text-align:center}
+  .cup-vis{width:120px;height:140px;margin:0 auto 10px;border:3px solid #8B4513;border-top:none;border-radius:0 0 20px 20px;position:relative;overflow:hidden;background:linear-gradient(to bottom,transparent 30%,#8B4513 30%)}
+  .cup-water{position:absolute;bottom:0;left:0;width:100%;height:0;background:rgba(100,180,255,.4);transition:height 1s;z-index:1}
+  .seed-icon{position:absolute;bottom:35%;left:50%;transform:translateX(-50%);font-size:22px;z-index:2;transition:all 1.5s}
+  .sprout{position:absolute;bottom:55%;left:50%;transform:translateX(-50%);font-size:0;z-index:3;transition:all 2s}
+  .cup-label{font-size:.8rem;font-weight:600;color:var(--txtl)}
+  .cond-toggles{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .tog-btn{padding:10px 20px;border-radius:25px;border:2px solid #ddd;background:#fff;cursor:pointer;font-family:inherit;font-weight:600;font-size:.85rem;transition:all .3s}
+  .tog-btn.active{border-color:var(--u1);background:var(--u1l);color:var(--u1d)}
+
+  /* FOOD CHAIN */
+  .chain-arena{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;min-height:100px;background:#f8f9fa;border-radius:16px;padding:20px;margin:20px 0;border:2px dashed #ddd;transition:border-color .3s}
+  .chain-arena.correct{border-color:var(--u1);background:var(--u1l)}
+  .chain-arena.wrong{border-color:#f44336;background:#ffebee}
+  .org-pool{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:15px 0}
+  .org-chip{padding:10px 18px;background:#fff;border:2px solid #e0e0e0;border-radius:30px;cursor:grab;font-weight:600;font-size:.9rem;transition:all .3s;user-select:none}
+  .org-chip:hover{transform:scale(1.08);box-shadow:0 4px 15px rgba(0,0,0,.1)}
+  .org-chip.used{opacity:.4;pointer-events:none}
+  .chain-arrow{font-size:1.5rem;color:var(--u1);font-weight:bold}
+  .chain-slot{min-width:80px;min-height:44px;border:2px dashed #ccc;border-radius:30px;display:flex;align-items:center;justify-content:center;padding:8px 16px;font-weight:600;font-size:.9rem;cursor:pointer;transition:all .3s;background:#fff}
+  .chain-slot.filled{border-style:solid;border-color:var(--u1);background:var(--u1l)}
+
+  /* ECO BOTTLE */
+  .eco-bottle{width:200px;height:280px;margin:20px auto;border:3px solid #90CAF9;border-radius:10px 10px 30px 30px;position:relative;overflow:hidden;background:linear-gradient(to bottom,#E3F2FD 0%,#BBDEFB 50%,#90CAF9 100%)}
+  .eco-plant{position:absolute;bottom:10px;font-size:28px;transition:all .5s}
+  .eco-fish{position:absolute;font-size:22px;transition:all 1s;animation:fs 4s ease-in-out infinite}
+  @keyframes fs{0%,100%{transform:translateX(0)}50%{transform:translateX(20px)}}
+  .eco-bubbles span{position:absolute;font-size:10px;animation:bu 3s linear infinite}
+  @keyframes bu{0%{transform:translateY(0);opacity:1}100%{transform:translateY(-200px);opacity:0}}
+  .eco-ctrl{padding:8px 16px;border-radius:20px;border:2px solid #ddd;background:#fff;font-family:inherit;font-weight:600;font-size:.82rem;cursor:pointer;transition:all .3s}
+  .eco-ctrl:hover{border-color:var(--u1)}
+
+  /* SHIP */
+  .water-tank{width:100%;height:250px;background:linear-gradient(to bottom,#e3f2fd 0%,#bbdefb 30%,#64b5f6 60%,#1976d2 100%);border-radius:0 0 20px 20px;border:3px solid #1565C0;border-top:none;position:relative;overflow:hidden}
+  .water-surface{position:absolute;top:30%;width:100%;height:4px;background:rgba(255,255,255,.5)}
+  .ship-obj{position:absolute;top:25%;left:50%;transform:translateX(-50%);transition:all 1s;font-size:50px}
+  .ship-obj.sinking{top:70%;opacity:.5}
+  .slider-group{margin:15px 0;display:flex;align-items:center;gap:12px;justify-content:center}
+  .slider-group label{font-weight:600;font-size:.9rem}
+  .slider-group input[type="range"]{width:200px;accent-color:var(--u2)}
+  .ship-ctrl{padding:10px 20px;border-radius:12px;border:none;font-family:inherit;font-weight:600;font-size:.9rem;cursor:pointer;transition:all .3s}
+  .ship-ctrl:hover{transform:translateY(-2px)}
+
+  /* SUBMARINE */
+  .sub-sim{width:100%;max-width:400px;height:300px;margin:20px auto;background:linear-gradient(to bottom,#E3F2FD 0%,#1565C0 100%);border-radius:16px;position:relative;overflow:hidden}
+  .depth-markers{position:absolute;right:10px;top:0;height:100%;display:flex;flex-direction:column;justify-content:space-between;padding:10px 0;font-size:.7rem;color:rgba(255,255,255,.7)}
+  .sub-icon{position:absolute;left:50%;transform:translateX(-50%);font-size:40px;transition:top 1.5s ease;top:10%}
+  .sub-bar{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);width:80%;height:20px;background:rgba(255,255,255,.2);border-radius:10px;overflow:hidden}
+  .sub-fill{height:100%;background:rgba(255,255,255,.6);border-radius:10px;transition:width 1s;width:30%}
+
+  /* TRASH */
+  .trash-bins{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:20px 0}
+  .trash-bin{width:110px;padding:15px 10px;border-radius:16px;text-align:center;transition:all .3s;cursor:pointer;border:3px solid transparent}
+  .trash-bin:hover{transform:scale(1.05)}
+  .trash-bin-icon{font-size:36px;margin-bottom:6px}
+  .trash-bin-label{font-size:.75rem;font-weight:700}
+  .trash-item{padding:16px 32px;background:#fff;border-radius:16px;box-shadow:var(--sh);font-size:1.1rem;font-weight:600;transition:all .5s;display:inline-block}
+  .trash-item.correct{background:#E8F5E9}
+  .trash-item.wrong{background:#FFEBEE;animation:shake .5s}
+  @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-10px)}75%{transform:translateX(10px)}}
+
+  /* WATER CYCLE */
+  .wc-box{width:100%;max-width:500px;height:300px;margin:20px auto;background:linear-gradient(to bottom,#87CEEB 0%,#87CEEB 60%,#8B4513 60%,#654321 100%);border-radius:16px;position:relative;overflow:hidden}
+  .wc-sun{position:absolute;top:15px;right:30px;font-size:40px;animation:sp 3s ease-in-out infinite}
+  @keyframes sp{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
+  .wc-cloud{position:absolute;top:30px;left:30px;font-size:45px;opacity:0;transition:opacity 2s,transform 2s}
+  .wc-cloud.visible{opacity:1;transform:translateX(20px)}
+  .wc-water{position:absolute;bottom:40%;left:10%;width:35%;height:15%;background:rgba(30,136,229,.6);border-radius:0 30px 0 0}
+  .rain-drop{position:absolute;font-size:14px;opacity:0;animation:rf 1.5s linear infinite}
+  @keyframes rf{0%{transform:translateY(0);opacity:0}10%{opacity:1}100%{transform:translateY(150px);opacity:0}}
+
+  /* HEAT */
+  .spoon-row{display:flex;gap:30px;justify-content:center;margin:20px 0;flex-wrap:wrap}
+  .spoon-item{text-align:center;width:120px}
+  .spoon-vis{width:30px;height:120px;margin:0 auto 10px;border-radius:15px 15px 5px 5px;position:relative;overflow:hidden}
+  .heat-fill{position:absolute;bottom:0;width:100%;height:0;transition:height 3s;border-radius:0 0 5px 5px}
+  .spoon-label{font-size:.82rem;font-weight:600}
+
+  /* QUIZ */
+  .quiz-container{max-width:700px;margin:0 auto}
+  .quiz-card{background:#fff;border-radius:20px;padding:30px;box-shadow:var(--sh);margin-bottom:24px}
+  .quiz-progress{display:flex;gap:6px;margin-bottom:24px;justify-content:center;flex-wrap:wrap}
+  .quiz-dot{width:12px;height:12px;border-radius:50%;background:#e0e0e0;transition:all .3s}
+  .quiz-dot.current{background:#9C27B0;transform:scale(1.3)}
+  .quiz-dot.correct{background:#4CAF50}
+  .quiz-dot.wrong{background:#F44336}
+  .quiz-q{font-size:1.1rem;font-weight:600;margin-bottom:20px;line-height:1.7}
+  .quiz-options{display:flex;flex-direction:column;gap:10px}
+  .quiz-opt{padding:14px 20px;border:2px solid #e0e0e0;border-radius:14px;cursor:pointer;transition:all .3s;font-size:.95rem;font-weight:500;text-align:left}
+  .quiz-opt:hover{border-color:#9C27B0;background:#F3E5F5}
+  .quiz-opt.correct{border-color:#4CAF50;background:#E8F5E9;pointer-events:none}
+  .quiz-opt.wrong{border-color:#F44336;background:#FFEBEE;pointer-events:none}
+  .quiz-opt.disabled{pointer-events:none}
+  .quiz-exp{margin-top:16px;padding:16px;border-radius:12px;background:#f5f5f5;font-size:.9rem;line-height:1.7;display:none}
+  .quiz-exp.show{display:block}
+  .quiz-nav-btn{padding:12px 28px;border-radius:25px;border:none;font-family:inherit;font-weight:600;cursor:pointer;transition:all .3s;font-size:.95rem}
+  .quiz-result{text-align:center;padding:40px}
+  .big-score{font-size:4rem;font-weight:900;background:linear-gradient(135deg,#9C27B0,#E040FB);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+  @media(max-width:600px){
+    .lessons-grid{grid-template-columns:1fr}
+    .unit-nav-btn{padding:12px 14px;font-size:13px}
+    .seed-cups{gap:12px}.seed-cup{width:130px}
+    .spoon-row{gap:15px}
+    .modal-content{border-radius:16px}
+    .trash-bin{width:80px;padding:10px 6px}
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-particles" id="particles"></div>
+  <div class="hero-content">
+    <div class="hero-icon">🔬</div>
+    <h1>五年级科学探险乐园</h1>
+    <p>教科版下册 · 互动实验 · 趣味闯关<br>在玩中学，在学中玩！</p>
+    <a href="#main" class="hero-btn" onclick="startExploring()">🚀 开始探险</a>
+  </div>
+  <div class="scroll-hint">▼ 向下滑动开始学习</div>
+</section>
+
+<!-- NAV -->
+<nav class="unit-nav" id="main">
+  <button class="unit-nav-btn active" data-unit="1" onclick="switchUnit(1)">🌱 生物与环境</button>
+  <button class="unit-nav-btn" data-unit="2" onclick="switchUnit(2)">🚢 船的研究</button>
+  <button class="unit-nav-btn" data-unit="3" onclick="switchUnit(3)">🌍 环境与我们</button>
+  <button class="unit-nav-btn" data-unit="4" onclick="switchUnit(4)">🔥 热</button>
+  <button class="unit-nav-btn" data-unit="quiz" onclick="switchUnit('quiz')">📝 考点闯关</button>
+</nav>
+
+<!-- UNIT 1 -->
+<section class="unit-section active" id="unit-1">
+  <div class="unit-header">
+    <div class="unit-icon">🌱</div>
+    <h2 style="color:var(--u1d)">第一单元 · 生物与环境</h2>
+    <p>探索种子发芽的奥秘，了解食物链与生态系统的奇妙联系</p>
+  </div>
+  <div class="lessons-grid">
+    <div class="lesson-card" onclick="openExp('seed')">
+      <div class="lc-header" style="background:linear-gradient(135deg,#66BB6A,#43A047)"><span class="lnum">01</span><h3>🌱 种子发芽实验</h3></div>
+      <div class="lc-body">
+        <p>动手模拟种子发芽的对比实验，探索种子发芽需要哪些条件！</p>
+        <div class="kp"><h4>📌 核心考点</h4><ul>
+          <li>种子发芽需要：适量的水、适宜温度、充足空气</li>
+          <li>种子发芽不需要：阳光、土壤</li>
+          <li>对比实验只能改变一个条件</li>
+          <li>用至少3粒种子减少偶然性</li>
+        </ul></div>
+        <button class="try-btn" style="background:var(--u1)">🧪 做实验</button>
+      </div>
+    </div>
+    <div class="lesson-card" onclick="openExp('foodchain')">
+      <div class="lc-header" style="background:linear-gradient(135deg,#81C784,#388E3C)"><span class="lnum">02</span><h3>🔗 食物链和食物网</h3></div>
+      <div class="lc-body">
+        <p>亲手搭建食物链！理解"谁被谁吃"的关系。</p>
+        <div class="kp"><h4>📌 核心考点</h4><ul>
+          <li>食物链从绿色植物开始，到肉食动物终止</li>
+          <li>箭头表示"谁被谁吃"，也是能量流动方向</li>
+          <li>多条食物链交织形成食物网</li>
+          <li>一种生物灭绝会影响整个食物网</li>
+        </ul></div>
+        <button class="try-btn" style="background:var(--u1)">🎮 搭建食物链</button>
+      </div>
+    </div>
+    <div class="lesson-card" onclick="openExp('ecobottle')">
+      <div class="lc-header" style="background:linear-gradient(135deg,#A5D6A7,#2E7D32)"><span class="lnum">03</span><h3>🐟 模拟生态瓶</h3></div>
+      <div class="lc-body">
+        <p>设计你自己的生态瓶，调节植物和动物数量，观察生态平衡！</p>
+        <div class="kp"><h4>📌 核心考点</h4><ul>
+          <li>生态系统 = 生物群落 + 非生物环境</li>
+          <li>植物为动物提供食物和氧气</li>
+          <li>动植物数量需要合理配比</li>
+          <li>先放植物后放动物</li>
+        </ul></div>
+        <button class="try-btn" style="background:var(--u1)">🔬 模拟实验</button>
+      </div>
+    </div>
+    <div class="lesson-card">
+      <div class="lc-header" style="background:linear-gradient(135deg,#C8E6C9,#1B5E20)"><span class="lnum">04</span><h3>🦎 动物适应环境</h3></div>
+      <div class="lc-body">
+        <p>蚯蚓为什么喜欢潮湿黑暗？青蛙为什么冬眠？丹顶鹤为什么迁徙？</p>
+        <div class="kp"><h4>📌 核心考点</h4><ul>
+          <li>蚯蚓喜欢阴暗、潮湿的环境</li>
+          <li>青蛙冬眠适应气候和食物变化</li>
+          <li>丹顶鹤迁徙适应气候、日照、食物变化</li>
+          <li>光合作用：CO₂ + 水 → 养料 + O₂</li>
+          <li>植物茎具有向光生长的特性</li>
+        </ul></div>
+        <div class="fun-fact"><span class="fun-fact-icon">💡</span><p>仙人掌的叶子退化成了刺，肥厚多汁的茎能贮存大量水分，这是适应干旱环境的结果！香蕉树叶子宽大是因为热带雨水多、阳光充足。</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- UNIT 2 -->
+<section class="unit-section" id="unit-2">
+  <div class="unit-header">
+    <div class="unit-icon">🚢</div>
+    <h2 style="color:var(--u2d)">第二单元 · 船的研究</h2>
+    <p>从独木舟到核潜艇，探索造船的科学原理</p>
+  </div>
+  <div class="lessons-grid">
+    <div class="lesson-card" onclick="openExp('shipbuild')">
+      <div class="lc-header" style="background:linear-gradient(135deg,#42A5F5,#1565C0)"><span class="lnum">01</span><h3>⛵ 造船与载重实验</h3></div>
+      <div class="lc-body">
+        <p>调整船的大小和形状，测试不同船能承载多少货物！</p>
+        <div class="kp"><h4>📌 核心考点</h4><ul>
+          <li>沉的材料做成船型（中空）→增大体积→增大浮力→浮</li>
+          <li>船的体积越大，载重量越大</li>
+          <li>浮力≥重力→浮；浮力＜重力→沉</li>
+          <li>船舱分格可以提高稳定性</li>
+        </ul></div>
+        <button class="try-btn" style="background:var(--u2)">🔨 造船实验</button>
+      </div>
+    </div>
+    <div class="lesson-card" onclick="openExp('submarine')">
+      <div class="lc-header" style="background:linear-gradient(135deg,#64B5F6,#0D47A1)"><span class="lnum">02</span><h3>🤿 潜艇沉浮模拟</h3></div>
+      <div class="lc-body">
+        <p>控制潜艇的压载水舱，体验潜艇如何上浮和下潜！</p>
+        <div class="kp"><h4>📌 核心考点</h4><ul>
+          <li>潜艇通过改变自身重量改变沉浮</li>
+          <li>注水→重力＞浮力→下潜</li>
+          <li>排水→重力＜浮力→上浮</li>
+          <li>核潜艇以核能为动力，可长时间水下航行</li>
+          <li>潜艇设计成鱼形减少水阻力</li>
+        </ul></div>
+        <button class="try-btn" style="background:var(--u2)">🕹️ 操控潜艇</button>
+      </div>
+    </div>
+    <div class="lesson-card">
+      <div class="lc-header" style="background:linear-gradient(135deg,#90CAF9,#1976D2)"><span class="lnum">03</span><h3>📜 船的发展历史</h3></div>
+      <div class="lc-body">
+        <p>从远古到现代，船是怎样一步步进化的？</p>
+        <div class="kp"><h4>📌 核心考点</h4><ul>
+          <li>发展：独木舟→竹筏→摇橹木船→帆船→蒸汽船→轮船→潜艇</li>
+          <li>材料：木头→钢铁 | 动力：人力→风力→蒸汽→柴油→核能</li>
+          <li>龙骨结构是中国古代重大发明</li>
+          <li>帆船已有5000多年历史</li>
+        </ul></div>
+        <div class="kb" style="border-color:var(--u2)"><h4>🚢 船的对比</h4><p>
+          <strong>摇橹木船</strong>：小/木头/人力/简单/慢<br>
+          <strong>帆船</strong>：中/木头/风力/较简单/较慢<br>
+          <strong>蒸汽船</strong>：大/钢铁/蒸汽轮机/较复杂/较快<br>
+          <strong>轮船</strong>：大/钢铁/柴油机/复杂/快<br>
+          <strong>核潜艇</strong>：大/钢铁/核反应堆/很复杂/很快
+        </p></div>
+        <div class="fun-fact"><span class="fun-fact-icon">💡</span><p>明代宝船最大长148米、宽60米，是当时世界上最大的木帆船！我国船舶制造业主要集中在长三角、珠三角和环渤海地区。</p></div>
+      </div>
+    </div>
+    <div class="lesson-card">
+      <div class="lc-header" style="background:linear-gradient(135deg,#BBDEFB,#0D47A1)"><span class="lnum">04</span><h3>🛠️ 工程设计流程</h3></div>
+      <div class="lc-body">
+        <p>设计一艘自己的小船，学习工程思维！</p>
+        <div class="kp"><h4>📌 核心考点</h4><ul>
+          <li>工程设计：问题→设计→制作→测试→完善</li>
+          <li>设计需考虑：大小、形状、材料、载重、稳定性、动力</li>
+          <li>测试标准：载重≥200g、有动力、能行驶一段距离</li>
+          <li>尖形船首可减少水的阻力</li>
+          <li>船舵控制行驶方向</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- UNIT 3 -->
+<section class="unit-section" id="unit-3">
+  <div class="unit-header">
+    <div class="unit-icon">🌍</div>
+    <h2 style="color:var(--u3d)">第三单元 · 环境与我们</h2>
+    <p>认识地球家园，学会保护我们的环境</p>
+  </div>
+  <div class="lessons-grid">
+    <div class="lesson-card" onclick="openExp('trash')">
+      <div class="lc-header" style="background:linear-gradient(135deg,#FFA726,#E65100)"><span class="lnum">01</span><h3>♻️ 垃圾分类大挑战</h3></div>
+      <div class="lc-body">
+        <p>快速把垃圾分到正确的垃圾桶里，看看你能得几分！</p>
+        <div class="kp"><h4>📌 核心考点</h4><ul>
+          <li>四类：可回收物、有害垃圾、厨余垃圾、其他垃圾</li>
+          <li>解决垃圾：减量化、资源化、无害化</li>
+          <li>废纸、塑料、金属、玻璃可回收再利用</li>
+          <li>2050年全球垃圾年产量将达34亿吨</li>
+        </ul></div>
+        <button class="try-btn" style="background:var(--u3)">🎯 开始分类</button>
+      </div>
+    </div>
+    <div class="lesson-card" onclick="openExp('watercycle')">
+      <div class="lc-header" style="background:linear-gradient(135deg,#FFB74D,#F57C00)"><span class="lnum">02</span><h3>💧 水资源探秘</h3></div>
+      <div class="lc-body">
+        <p>地球上有那么多水，为什么还缺水？一起来探索水循环！</p>
+        <div class="kp"><h4>📌 核心考点</h4><ul>
+          <li>地球表面约3/4被水覆盖，但淡水仅占2.5%</li>
+          <li>淡水中冰川占69.7%，地下水30%，湖泊河流仅0.3%</li>
+          <li>中国人均水资源仅为世界平均的1/4</li>
+          <li>滴灌是最节水的农业灌溉技术之一</li>
+          <li>南水北调解决南北水资源分布不均</li>
+        </ul></div>
+        <button class="try-btn" style="background:var(--u3)">🌊 探索水循环</button>
+      </div>
+    </div>
+    <div class="lesson-card">
+      <div class="lc-header" style="background:linear-gradient(135deg,#FFCC80,#EF6C00)"><span class="lnum">03</span><h3>🌡️ 地球——宇宙的奇迹</h3></div>
+      <div class="lc-body">
+        <p>为什么只有地球适合生命生存？</p>
+        <div class="kp"><h4>📌 核心考点</h4><ul>
+          <li>生命条件：适宜温度、大量氧气、液态水、稳定气候</li>
+          <li>大气层像"毛毯"保持地表平均气温15°C</li>
+          <li>地球离太阳距离刚好→有液态水</li>
+          <li>海洋植物是CO₂的主要吸收者之一</li>
+          <li>地球平均半径约6400千米</li>
+        </ul></div>
+        <div class="fun-fact"><span class="fun-fact-icon">🌏</span><p>火星和金星的大气基本不含氧气，唯有地球大气中有大量氧气。火星气候会剧烈变动，而地球气候在很长时期内保持稳定。</p></div>
+      </div>
+    </div>
+    <div class="lesson-card">
+      <div class="lc-header" style="background:linear-gradient(135deg,#FFE0B2,#BF360C)"><span class="lnum">04</span><h3>⚡ 合理利用能源</h3></div>
+      <div class="lc-body">
+        <p>煤、石油用完就没有了！我们怎样节能减排？</p>
+        <div class="kp"><h4>📌 核心考点</h4><ul>
+          <li>煤、石油、天然气 = 化石燃料（不可再生）</li>
+          <li>1度电 = 1千瓦电器×1小时</li>
+          <li>温室效应：过度燃烧化石能源→CO₂增多→气温上升</li>
+          <li>我国电能：水电、太阳能、风电、核电、火电</li>
+          <li>雾霾天：少开窗、少外出、戴口罩</li>
+        </ul></div>
+        <div class="kb" style="border-color:var(--u3)"><h4>🏠 衣食住行节能</h4><p>
+          <strong>衣</strong>：少买不必要的衣服，旧衣回收<br>
+          <strong>食</strong>：光盘行动，厨余做堆肥<br>
+          <strong>住</strong>：不用电器拔插头，生活用水重复利用<br>
+          <strong>行</strong>：乘公共交通，减少自驾
+        </p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- UNIT 4 -->
+<section class="unit-section" id="unit-4">
+  <div class="unit-header">
+    <div class="unit-icon">🔥</div>
+    <h2 style="color:var(--u4d)">第四单元 · 热</h2>
+    <p>探索热的传递方式，理解温度变化的奥秘</p>
+  </div>
+  <div class="lessons-grid">
+    <div class="lesson-card" onclick="openExp('heat')">
+      <div class="lc-header" style="background:linear-gradient(135deg,#EF5350,#C62828)"><span class="lnum">01</span><h3>🥄 传热比赛</h3></div>
+      <div class="lc-body">
+        <p>金属勺、木勺、塑料勺，谁传热最快？</p>
+        <div class="kp"><h4>📌 核心考点</h4><ul>
+          <li>热从温度高的物体传向温度低的物体</li>
+          <li>不同材料传热快慢不同</li>
+          <li>金属 = 热的良导体（传热快）</li>
+          <li>木头、塑料 = 热的不良导体（传热慢）</li>
+        </ul></div>
+        <button class="try-btn" style="background:var(--u4)">🧪 开始实验</button>
+      </div>
+    </div>
+    <div class="lesson-card">
+      <div class="lc-header" style="background:linear-gradient(135deg,#E57373,#B71C1C)"><span class="lnum">02</span><h3>🌊 三种传热方式</h3></div>
+      <div class="lc-body">
+        <p>热传导、热对流、热辐射——热是怎样传递的？</p>
+        <div class="kp"><h4>📌 核心考点</h4><ul>
+          <li><strong>热传导</strong>：物体接触传热（炉子→水壶）</li>
+          <li><strong>热对流</strong>：液体/气体受热上升遇冷下降循环（烧水）</li>
+          <li><strong>热辐射</strong>：不需介质直接传递（太阳→地球）</li>
+          <li>热总是从温度高处传到温度低处</li>
+        </ul></div>
+        <div class="kb" style="border-color:var(--u4)"><h4>🏠 生活实例</h4><p>
+          壶中水烧开 → <strong>热对流</strong><br>
+          炉子热传到水壶 → <strong>热传导</strong><br>
+          炉子热传到手掌 → <strong>热辐射</strong><br>
+          保温瓶内壁镀银 → 减少<strong>热辐射</strong><br>
+          保温瓶木塞 → 减少<strong>热传导</strong>和<strong>热对流</strong>
+        </p></div>
+      </div>
+    </div>
+    <div class="lesson-card">
+      <div class="lc-header" style="background:linear-gradient(135deg,#EF9A9A,#D32F2F)"><span class="lnum">03</span><h3>💨 温度与水的变化</h3></div>
+      <div class="lc-body">
+        <p>水是怎样在固态、液态、气态之间变化的？</p>
+        <div class="kp"><h4>📌 核心考点</h4><ul>
+          <li>水的沸点100°C，冰点0°C</li>
+          <li>沸腾前气泡由大变小，沸腾时由小变大</li>
+          <li>蒸发：液态水→水蒸气（温度越高越快）</li>
+          <li>凝结：水蒸气遇冷→小水滴（露珠、锅盖水滴、云雾）</li>
+          <li>只有持续加热，水才会持续沸腾</li>
+        </ul></div>
+        <div class="fun-fact"><span class="fun-fact-icon">🧊</span><p>湿衣服晾干是<strong>蒸发</strong>，草地露珠是<strong>凝结</strong>。温度不同的物体接触后，热量传递直到温度相同，叫做<strong>热平衡</strong>。</p></div>
+      </div>
+    </div>
+    <div class="lesson-card">
+      <div class="lc-header" style="background:linear-gradient(135deg,#FFCDD2,#E53935)"><span class="lnum">04</span><h3>🧣 保温的秘密</h3></div>
+      <div class="lc-body">
+        <p>保温瓶为什么能保温？怎样让水凉得更慢？</p>
+        <div class="kp"><h4>📌 核心考点</h4><ul>
+          <li>减慢散热：毛巾包裹、密封盖、保温材料</li>
+          <li>保温瓶：镀银减辐射 + 木塞减传导对流 + 真空减传导</li>
+          <li>温度不同物体接触→传热→直到热平衡</li>
+          <li>锅用金属（快传热），锅柄用木头塑料（慢传热）</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- QUIZ -->
+<section class="unit-section" id="unit-quiz">
+  <div class="unit-header">
+    <div class="unit-icon">📝</div>
+    <h2 style="color:#7B1FA2">考点闯关大挑战</h2>
+    <p>全册知识点一网打尽，看看你能答对几题！</p>
+  </div>
+  <div class="quiz-container" id="quizContainer">
+    <div class="quiz-progress" id="quizProgress"></div>
+    <div class="quiz-card" id="quizCard">
+      <div class="quiz-q" id="quizQ"></div>
+      <div class="quiz-options" id="quizOpts"></div>
+      <div class="quiz-exp" id="quizExp"></div>
+      <div style="display:flex;gap:12px;justify-content:center;margin-top:20px">
+        <button class="quiz-nav-btn" style="background:#9C27B0;color:#fff" id="nextQBtn" onclick="nextQuiz()" disabled>下一题 →</button>
+      </div>
+    </div>
+    <div class="quiz-result" id="quizResult" style="display:none">
+      <div class="big-score" id="finalScore"></div>
+      <p style="margin:10px 0;font-size:1.1rem;font-weight:600" id="finalMsg"></p>
+      <button class="action-btn" style="background:#9C27B0" onclick="resetQuiz()">🔄 再来一次</button>
+    </div>
+  </div>
+</section>
+
+<!-- ========== MODALS ========== -->
+
+<!-- SEED MODAL -->
+<div class="modal-overlay" id="modal-seed">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('seed')">✕</button>
+    <div class="m-header" style="background:linear-gradient(135deg,#66BB6A,#2E7D32)">
+      <h2>🌱 种子发芽对比实验</h2>
+      <p>选择不同条件，观察种子是否能发芽</p>
+    </div>
+    <div class="m-body">
+      <p style="text-align:center;color:var(--txtl);font-size:.9rem;margin-bottom:15px">点击按钮切换实验条件，再点"开始实验"</p>
+      <div class="cond-toggles" style="margin-bottom:20px">
+        <button class="tog-btn active" id="tog-water" onclick="togCond('water')">💧 有水</button>
+        <button class="tog-btn active" id="tog-temp" onclick="togCond('temp')">🌡️ 适宜温度</button>
+        <button class="tog-btn active" id="tog-air" onclick="togCond('air')">💨 有空气</button>
+        <button class="tog-btn" id="tog-light" onclick="togCond('light')">☀️ 有阳光</button>
+        <button class="tog-btn" id="tog-soil" onclick="togCond('soil')">🪨 有土壤</button>
+      </div>
+      <div class="seed-cups">
+        <div class="seed-cup">
+          <div class="cup-vis" id="cupA">
+            <div class="cup-water" id="waterA"></div>
+            <div class="seed-icon" id="seedA">🫘</div>
+            <div class="sprout" id="sproutA">🌱</div>
+          </div>
+          <div class="cup-label">实验组</div>
+        </div>
+        <div style="display:flex;align-items:center;font-size:1.5rem;font-weight:bold;color:#ccc">VS</div>
+        <div class="seed-cup">
+          <div class="cup-vis" id="cupB">
+            <div class="cup-water" id="waterB" style="height:30%"></div>
+            <div class="seed-icon" id="seedB">🫘</div>
+            <div class="sprout" id="sproutB">🌱</div>
+          </div>
+          <div class="cup-label">对照组（全部满足）</div>
+        </div>
+      </div>
+      <div style="text-align:center;margin:20px 0">
+        <button class="action-btn" style="background:var(--u1)" onclick="runSeed()">🚀 开始实验</button>
+        <button class="action-btn" style="background:#999;margin-left:10px" onclick="resetSeed()">🔄 重置</button>
+      </div>
+      <div class="exp-result" id="seedResult">选择条件后点击"开始实验"</div>
+      <div class="kb" style="border-color:var(--u1)"><h4>📖 知识总结</h4><p>种子发芽的<strong>必要条件</strong>：适量的水、适宜的温度、充足的空气。<strong>不需要</strong>阳光和土壤。对比实验只能改变<strong>一个条件</strong>，其他条件保持相同。用至少3粒种子减少偶然性。至少两个小组同时实验保证可重复性。</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOD CHAIN MODAL -->
+<div class="modal-overlay" id="modal-foodchain">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('foodchain')">✕</button>
+    <div class="m-header" style="background:linear-gradient(135deg,#81C784,#1B5E20)">
+      <h2>🔗 搭建食物链</h2>
+      <p>按顺序选择生物，搭建正确的食物链</p>
+    </div>
+    <div class="m-body">
+      <div style="text-align:center">
+        <p style="color:var(--txtl);font-size:.9rem;margin-bottom:10px">提示：食物链从<strong>植物</strong>开始，箭头表示"被吃"方向</p>
+        <p style="font-weight:700;margin-bottom:10px" id="chainTitle">第 1 关</p>
+        <div class="chain-arena" id="chainArena"></div>
+        <div class="org-pool" id="orgPool"></div>
+        <div style="margin:15px 0">
+          <button class="action-btn" style="background:var(--u1)" onclick="checkChain()">✅ 检查答案</button>
+          <button class="action-btn" style="background:#999;margin-left:10px" onclick="resetChain()">🔄 重来</button>
+        </div>
+        <div class="exp-result" id="chainResult">选择生物放入食物链中</div>
+        <div class="kb" style="border-color:var(--u1)"><h4>📖 食物链知识</h4><p>生物之间因食物关系构成"链条"叫<strong>食物链</strong>，从<strong>绿色植物</strong>开始到<strong>肉食动物</strong>终止。箭头表示"谁被谁吃"，也是能量流动方向。多条食物链交织成<strong>食物网</strong>。若瓢虫数量骤降→小鸟失去食物→蚜虫大量繁殖→绿豆苗被吃光→整条食物链被破坏。</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ECO BOTTLE MODAL -->
+<div class="modal-overlay" id="modal-ecobottle">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('ecobottle')">✕</button>
+    <div class="m-header" style="background:linear-gradient(135deg,#A5D6A7,#1B5E20)">
+      <h2>🐟 模拟生态瓶</h2>
+      <p>调节植物和动物数量，维持生态平衡</p>
+    </div>
+    <div class="m-body" style="text-align:center">
+      <div class="eco-bottle" id="ecoBottle">
+        <div id="ecoPlants"></div>
+        <div id="ecoFish"></div>
+        <div class="eco-bubbles" id="ecoBubbles"></div>
+      </div>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:15px 0">
+        <button class="eco-ctrl" onclick="chgEco('p',1)">🌿 +植物</button>
+        <button class="eco-ctrl" onclick="chgEco('p',-1)">🌿 -植物</button>
+        <button class="eco-ctrl" onclick="chgEco('f',1)">🐟 +小鱼</button>
+        <button class="eco-ctrl" onclick="chgEco('f',-1)">🐟 -小鱼</button>
+        <button class="eco-ctrl" onclick="chgEco('w',-1)">💧 减水</button>
+        <button class="eco-ctrl" onclick="chgEco('w',1)">💧 加水</button>
+      </div>
+      <div class="exp-result" id="ecoStatus">
+        🌿 植物: <span id="epC">3</span> | 🐟 小鱼: <span id="efC">2</span> | 💧 水量: <span id="ewL">正常</span><br>
+        <span id="ecoMsg">生态平衡，小鱼生活得很好！</span>
+      </div>
+      <div class="kb" style="border-color:var(--u1);text-align:left"><h4>📖 生态瓶知识</h4><p>群落里各种生物与非生物环境相互联系构成<strong>生态系统</strong>。植物为动物提供食物和氧气，动物粪便为植物提供养料。植物增多→氧气增多→小鱼浮水面次数<strong>减少</strong>。小鱼增多→耗氧增大→可能缺氧<strong>死亡</strong>。制作时先放植物后放动物，水量不能太少。</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- SHIP BUILD MODAL -->
+<div class="modal-overlay" id="modal-shipbuild">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('shipbuild')">✕</button>
+    <div class="m-header" style="background:linear-gradient(135deg,#42A5F5,#0D47A1)">
+      <h2>⛵ 造船与载重实验</h2>
+      <p>调整船的体积，测试能承载多少货物</p>
+    </div>
+    <div class="m-body" style="text-align:center">
+      <div style="max-width:500px;margin:0 auto">
+        <div class="water-tank" id="wTank">
+          <div class="water-surface"></div>
+          <div class="ship-obj" id="shipObj">🚤</div>
+        </div>
+      </div>
+      <div class="slider-group">
+        <label>船体积：</label>
+        <input type="range" min="1" max="5" value="3" id="sizeSlider" oninput="updShip()">
+        <span id="sizeLbl">中等</span>
+      </div>
+      <div class="slider-group">
+        <label>装货物：</label>
+        <input type="range" min="0" max="10" value="0" id="cargoSlider" oninput="updShip()">
+        <span id="cargoLbl">0 箱</span>
+      </div>
+      <p style="font-weight:600;margin:10px 0" id="shipStat">漂浮中，还能装更多！</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:10px 0">
+        <button class="ship-ctrl" style="background:#E3F2FD;color:var(--u2d)" onclick="chgMat('wood')">🪵 木材船</button>
+        <button class="ship-ctrl" style="background:#E3F2FD;color:var(--u2d)" onclick="chgMat('steel')">⚙️ 钢铁船</button>
+        <button class="ship-ctrl" style="background:#E3F2FD;color:var(--u2d)" onclick="chgMat('foil')">🔲 铝箔船</button>
+      </div>
+      <div class="exp-result" id="shipResult">调整体积和货物，观察沉浮</div>
+      <div class="kb" style="border-color:var(--u2);text-align:left"><h4>📖 浮力与载重</h4><p>把沉的材料做成<strong>中空船型</strong>→增大体积→增大浮力→漂浮。体积越大，浮力越大，载重越大。<strong>浮力≥重力→浮</strong>，<strong>浮力＜重力→沉</strong>。钢铁船坚固且载重大。船舱分格可提高稳定性，防止货物滚动导致侧翻。</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- SUBMARINE MODAL -->
+<div class="modal-overlay" id="modal-submarine">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('submarine')">✕</button>
+    <div class="m-header" style="background:linear-gradient(135deg,#64B5F6,#0D47A1)">
+      <h2>🤿 潜艇沉浮模拟</h2>
+      <p>控制压载水舱，让潜艇上浮或下潜</p>
+    </div>
+    <div class="m-body" style="text-align:center">
+      <div class="sub-sim">
+        <div class="depth-markers"><span>水面</span><span>50m</span><span>100m</span><span>150m</span><span>200m</span></div>
+        <div class="sub-icon" id="subIcon">🤿</div>
+        <div class="sub-bar"><div class="sub-fill" id="subFill"></div></div>
+      </div>
+      <p style="margin:10px 0;font-weight:600" id="subStat">潜艇在水面 | 压载水: 30%</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <button class="ship-ctrl" style="background:#BBDEFB;color:#0D47A1" onclick="adjBal(15)">💧 注水（下潜）</button>
+        <button class="ship-ctrl" style="background:#BBDEFB;color:#0D47A1" onclick="adjBal(-15)">🫧 排水（上浮）</button>
+        <button class="ship-ctrl" style="background:#BBDEFB;color:#0D47A1" onclick="adjBal(0)">⚖️ 悬浮</button>
+      </div>
+      <div class="kb" style="border-color:var(--u2);text-align:left;margin-top:20px"><h4>📖 潜艇原理</h4><p>潜艇通过<strong>压载水舱</strong>调节自身重量。注水→重量增大→重力＞浮力→<strong>下潜</strong>。排水→重量减小→重力＜浮力→<strong>上浮</strong>。重力=浮力→<strong>悬浮</strong>。核潜艇以核能为动力，可长时间水下航行。"蛟龙"号是中国自行设计的载人潜水器。</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- TRASH SORT MODAL -->
+<div class="modal-overlay" id="modal-trash">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('trash')">✕</button>
+    <div class="m-header" style="background:linear-gradient(135deg,#FFA726,#E65100)">
+      <h2>♻️ 垃圾分类大挑战</h2>
+      <p>把垃圾放入正确的垃圾桶！</p>
+    </div>
+    <div class="m-body" style="text-align:center">
+      <div style="font-weight:600;font-size:1rem;margin-bottom:10px">得分：<span id="tScore">0</span> / <span id="tTotal">0</span></div>
+      <div style="min-height:80px;display:flex;align-items:center;justify-content:center;margin:20px 0">
+        <div class="trash-item" id="tItem">加载中...</div>
+      </div>
+      <div class="trash-bins">
+        <div class="trash-bin" style="background:#E3F2FD" onclick="sortT('可回收物')">
+          <div class="trash-bin-icon">♻️</div><div class="trash-bin-label">可回收物</div>
+        </div>
+        <div class="trash-bin" style="background:#FFEBEE" onclick="sortT('有害垃圾')">
+          <div class="trash-bin-icon">☠️</div><div class="trash-bin-label">有害垃圾</div>
+        </div>
+        <div class="trash-bin" style="background:#F1F8E9" onclick="sortT('厨余垃圾')">
+          <div class="trash-bin-icon">🍌</div><div class="trash-bin-label">厨余垃圾</div>
+        </div>
+        <div class="trash-bin" style="background:#F5F5F5" onclick="sortT('其他垃圾')">
+          <div class="trash-bin-icon">🗑️</div><div class="trash-bin-label">其他垃圾</div>
+        </div>
+      </div>
+      <div class="exp-result" id="tResult">把上面的垃圾分到正确的桶里！</div>
+      <div class="kb" style="border-color:var(--u3);text-align:left;margin-top:15px"><h4>📖 垃圾分类知识</h4><p><strong>可回收物</strong>：废纸、塑料、金属、玻璃、旧衣服等。<strong>有害垃圾</strong>：废电池、过期药品、废灯管、废油漆等。<strong>厨余垃圾</strong>：剩饭、果皮、蛋壳、骨头等。<strong>其他垃圾</strong>：用过的纸巾、烟蒂、旧牙刷、碎花盆等。堆肥箱可将厨余垃圾变成花草底肥，腐熟需1-3个月。</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- WATER CYCLE MODAL -->
+<div class="modal-overlay" id="modal-watercycle">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('watercycle')">✕</button>
+    <div class="m-header" style="background:linear-gradient(135deg,#FFB74D,#E65100)">
+      <h2>💧 水资源与水循环</h2>
+      <p>了解地球上的水是如何循环的</p>
+    </div>
+    <div class="m-body" style="text-align:center">
+      <div class="wc-box" id="wcBox">
+        <div class="wc-sun">☀️</div>
+        <div class="wc-cloud" id="wcCloud">☁️</div>
+        <div class="wc-water"></div>
+        <div id="rainDrops"></div>
+        <div style="position:absolute;bottom:8px;left:15px;color:#fff;font-size:.75rem">🏔️ 陆地</div>
+        <div style="position:absolute;bottom:43%;left:12%;color:#fff;font-size:.7rem">🌊 海洋</div>
+        <div style="position:absolute;top:55%;left:55%;color:rgba(255,255,255,.8);font-size:.7rem">蒸发 ↑</div>
+        <div style="position:absolute;top:18%;left:42%;color:rgba(255,255,255,.8);font-size:.7rem">凝结→降水 ↓</div>
+      </div>
+      <button class="action-btn" style="background:var(--u3);margin:15px 0" onclick="playWC()">▶️ 播放水循环</button>
+      <div class="kb" style="border-color:var(--u3);text-align:left"><h4>📖 水资源知识</h4><p>地球水资源约14亿立方千米，<strong>淡水仅占2.5%</strong>，其中冰川69.7%，地下水30%，湖泊河流仅0.3%。中国人均水资源仅世界平均的<strong>1/4</strong>，属轻度缺水。南方水多北方少→<strong>南水北调</strong>。<strong>滴灌</strong>是最节水的农业灌溉技术。水污染来源：农业、工业、生活污水。污水处理：沉淀→过滤→灭菌。</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- HEAT TRANSFER MODAL -->
+<div class="modal-overlay" id="modal-heat">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('heat')">✕</button>
+    <div class="m-header" style="background:linear-gradient(135deg,#EF5350,#B71C1C)">
+      <h2>🥄 传热比赛实验</h2>
+      <p>把不同勺子放进热水，观察谁先变热</p>
+    </div>
+    <div class="m-body" style="text-align:center">
+      <p style="color:var(--txtl);font-size:.9rem;margin-bottom:15px">点击"开始加热"观察三种勺子的传热速度</p>
+      <div class="spoon-row">
+        <div class="spoon-item">
+          <div class="spoon-vis" style="background:#C0C0C0"><div class="heat-fill" id="hMetal" style="background:linear-gradient(to top,#F44336,#FF9800)"></div></div>
+          <div class="spoon-label">🥄 金属勺</div>
+          <div style="font-size:.75rem;color:var(--u4)" id="tMetal">25°C</div>
+        </div>
+        <div class="spoon-item">
+          <div class="spoon-vis" style="background:#FFCC80"><div class="heat-fill" id="hWood" style="background:linear-gradient(to top,#F44336,#FF9800)"></div></div>
+          <div class="spoon-label">🪵 木勺</div>
+          <div style="font-size:.75rem;color:var(--u4)" id="tWood">25°C</div>
+        </div>
+        <div class="spoon-item">
+          <div class="spoon-vis" style="background:#90CAF9"><div class="heat-fill" id="hPlastic" style="background:linear-gradient(to top,#F44336,#FF9800)"></div></div>
+          <div class="spoon-label">🥤 塑料勺</div>
+          <div style="font-size:.75rem;color:var(--u4)" id="tPlastic">25°C</div>
+        </div>
+      </div>
+      <div style="background:#FF7043;color:#fff;padding:10px;border-radius:12px;font-weight:600;margin:10px 0">🔥 热水 (90°C)</div>
+      <div style="margin:15px 0">
+        <button class="action-btn" style="background:var(--u4)" onclick="startHeat()">🔥 开始加热</button>
+        <button class="action-btn" style="background:#999;margin-left:10px" onclick="resetHeat()">🔄 重置</button>
+      </div>
+      <div class="exp-result" id="heatResult">点击开始加热，观察哪种勺子传热最快</div>
+      <div class="kb" style="border-color:var(--u4);text-align:left"><h4>📖 传热知识</h4><p>不同材料传热快慢不同。<strong>金属</strong>是热的<strong>良导体</strong>，传热最快；<strong>木头和塑料</strong>是热的<strong>不良导体</strong>，传热慢。所以锅用金属做（快速传热烹饪），锅柄用木头或塑料做（防止烫手）。热的传递方式有<strong>传导</strong>（接触）、<strong>对流</strong>（液体气体循环）、<strong>辐射</strong>（不需介质）三种。</p></div>
+    </div>
+  </div>
+</div>
+<script>
+// ========== PARTICLES ==========
+(function(){
+  var c=document.getElementById('particles');
+  for(var i=0;i<30;i++){
+    var p=document.createElement('div');
+    p.className='particle';
+    var s=Math.random()*20+5;
+    p.style.width=s+'px';p.style.height=s+'px';
+    p.style.left=Math.random()*100+'%';
+    p.style.animationDuration=(Math.random()*15+10)+'s';
+    p.style.animationDelay=(Math.random()*15)+'s';
+    c.appendChild(p);
+  }
+})();
+
+// ========== NAV ==========
+function startExploring(){document.getElementById('main').scrollIntoView({behavior:'smooth'})}
+
+function switchUnit(u){
+  document.querySelectorAll('.unit-nav-btn').forEach(function(b){b.classList.remove('active')});
+  document.querySelector('.unit-nav-btn[data-unit="'+u+'"]').classList.add('active');
+  document.querySelectorAll('.unit-section').forEach(function(s){s.classList.remove('active')});
+  document.getElementById('unit-'+u).classList.add('active');
+  if(u==='quiz') initQuiz();
+}
+
+// ========== MODAL ==========
+function openExp(name){
+  document.getElementById('modal-'+name).classList.add('active');
+  document.body.style.overflow='hidden';
+  if(name==='foodchain') initChain();
+  if(name==='ecobottle') initEco();
+  if(name==='trash') initTrash();
+}
+
+function closeModal(name){
+  document.getElementById('modal-'+name).classList.remove('active');
+  document.body.style.overflow='';
+}
+
+document.querySelectorAll('.modal-overlay').forEach(function(m){
+  m.addEventListener('click',function(e){
+    if(e.target===this){this.classList.remove('active');document.body.style.overflow='';}
+  });
+});
+
+// ========== SEED EXPERIMENT ==========
+var seedCond={water:true,temp:true,air:true,light:false,soil:false};
+
+function togCond(c){
+  seedCond[c]=!seedCond[c];
+  document.getElementById('tog-'+c).classList.toggle('active');
+}
+
+function runSeed(){
+  var ok=seedCond.water&&seedCond.temp&&seedCond.air;
+  document.getElementById('waterA').style.height=seedCond.water?'30%':'0%';
+  setTimeout(function(){
+    document.getElementById('sproutB').style.fontSize='28px';
+    document.getElementById('seedB').style.opacity='.3';
+    if(ok){
+      document.getElementById('sproutA').style.fontSize='28px';
+      document.getElementById('seedA').style.opacity='.3';
+    }
+  },800);
+  var r=document.getElementById('seedResult');
+  setTimeout(function(){
+    if(ok){
+      var extra=[];
+      if(!seedCond.light) extra.push('阳光');
+      if(!seedCond.soil) extra.push('土壤');
+      r.innerHTML='✅ <strong>两组种子都发芽了！</strong><br>说明'+(extra.length?extra.join('、'):'当前去掉的条件')+'对种子发芽<strong>不是必需的</strong>。';
+      r.style.background='#e8f5e9';
+    } else {
+      var miss=[];
+      if(!seedCond.water) miss.push('水');
+      if(!seedCond.temp) miss.push('适宜温度');
+      if(!seedCond.air) miss.push('空气');
+      r.innerHTML='❌ <strong>实验组种子没有发芽！</strong><br>缺少了：'+miss.join('、')+'。说明种子发芽<strong>需要</strong>这些条件！';
+      r.style.background='#ffebee';
+    }
+  },1500);
+}
+
+function resetSeed(){
+  ['sproutA','sproutB'].forEach(function(id){document.getElementById(id).style.fontSize='0'});
+  ['seedA','seedB'].forEach(function(id){document.getElementById(id).style.opacity='1'});
+  document.getElementById('waterA').style.height='0';
+  var r=document.getElementById('seedResult');
+  r.innerHTML='选择条件后点击"开始实验"';r.style.background='#f0f8f0';
+}
+
+// ========== FOOD CHAIN ==========
+var chainLvls=[
+  {orgs:['🌿 绿豆苗','🐛 蚜虫','🐞 瓢虫','🐦 小鸟'],ans:['🌿 绿豆苗','🐛 蚜虫','🐞 瓢虫','🐦 小鸟'],title:'第 1 关：绿豆苗 → 蚜虫 → 瓢虫 → 小鸟'},
+  {orgs:['🐦 小鸟','🌿 小草','🐌 蜗牛'],ans:['🌿 小草','🐌 蜗牛','🐦 小鸟'],title:'第 2 关：小草 → 蜗牛 → 小鸟'},
+  {orgs:['🍂 落叶','🐛 蚯蚓','🐦 小鸟'],ans:['🍂 落叶','🐛 蚯蚓','🐦 小鸟'],title:'第 3 关：落叶 → 蚯蚓 → 小鸟'},
+  {orgs:['🌿 小草','🐛 蚜虫','🐞 瓢虫','🕷️ 蜘蛛','🐦 小鸟'],ans:['🌿 小草','🐛 蚜虫','🐞 瓢虫','🕷️ 蜘蛛','🐦 小鸟'],title:'第 4 关：小草 → 蚜虫 → 瓢虫 → 蜘蛛 → 小鸟'}
+];
+var cLvl=0,selOrgs=[],slotN=0;
+
+function initChain(){cLvl=0;loadChain();}
+
+function loadChain(){
+  var lv=chainLvls[cLvl];selOrgs=[];
+  document.getElementById('chainTitle').textContent=lv.title;
+  var arena=document.getElementById('chainArena');
+  arena.className='chain-arena';arena.innerHTML='';
+  slotN=lv.ans.length;
+  for(var i=0;i<slotN;i++){
+    if(i>0) arena.innerHTML+='<span class="chain-arrow">→</span>';
+    arena.innerHTML+='<div class="chain-slot" id="cs-'+i+'" onclick="rmSlot('+i+')"></div>';
+  }
+  var pool=document.getElementById('orgPool');
+  var sh=[].concat(lv.orgs).sort(function(){return Math.random()-.5});
+  pool.innerHTML=sh.map(function(o){return '<div class="org-chip" onclick="selOrg(this,\''+o+'\')">'+o+'</div>'}).join('');
+  document.getElementById('chainResult').innerHTML='选择生物放入食物链中';
+  document.getElementById('chainResult').style.background='#f0f8f0';
+}
+
+function selOrg(el,name){
+  if(selOrgs.length>=slotN) return;
+  el.classList.add('used');selOrgs.push(name);
+  var s=document.getElementById('cs-'+(selOrgs.length-1));
+  s.textContent=name;s.classList.add('filled');
+}
+
+function rmSlot(idx){
+  if(idx>=selOrgs.length) return;
+  var removed=selOrgs.splice(idx);
+  document.querySelectorAll('.org-chip').forEach(function(c){
+    if(removed.indexOf(c.textContent)>=0) c.classList.remove('used');
+  });
+  for(var i=idx;i<slotN;i++){
+    var s=document.getElementById('cs-'+i);s.textContent='';s.classList.remove('filled');
+  }
+}
+
+function checkChain(){
+  var lv=chainLvls[cLvl],arena=document.getElementById('chainArena'),r=document.getElementById('chainResult');
+  if(selOrgs.length<lv.ans.length){r.innerHTML='⚠️ 还没放完哦，继续选择生物！';return;}
+  var ok=JSON.stringify(selOrgs)===JSON.stringify(lv.ans);
+  if(ok){
+    arena.classList.add('correct');
+    r.innerHTML='🎉 <strong>太棒了！完全正确！</strong> 能量从植物流向动物。';r.style.background='#e8f5e9';
+    if(cLvl<chainLvls.length-1){setTimeout(function(){cLvl++;loadChain();},2000);}
+    else{r.innerHTML+='<br>🏆 <strong>全部通关！你是食物链大师！</strong>';}
+  } else {
+    arena.classList.add('wrong');
+    r.innerHTML='❌ 顺序不太对哦！提示：从植物开始，想想谁吃谁？';r.style.background='#ffebee';
+    setTimeout(function(){arena.classList.remove('wrong');},1500);
+  }
+}
+
+function resetChain(){loadChain();}
+
+// ========== ECO BOTTLE ==========
+var eco={p:3,f:2,w:2};
+
+function initEco(){eco={p:3,f:2,w:2};renderEco();}
+
+function chgEco(t,d){
+  if(t==='p') eco.p=Math.max(0,Math.min(8,eco.p+d));
+  if(t==='f') eco.f=Math.max(0,Math.min(8,eco.f+d));
+  if(t==='w') eco.w=Math.max(0,Math.min(2,eco.w+d));
+  renderEco();
+}
+
+function renderEco(){
+  var bt=document.getElementById('ecoBottle');
+  bt.style.height=['180px','240px','280px'][eco.w];
+  var pd=document.getElementById('ecoPlants');pd.innerHTML='';
+  for(var i=0;i<eco.p;i++){
+    var p=document.createElement('span');p.className='eco-plant';p.textContent='🌿';
+    p.style.left=(10+(i*25)%170)+'px';p.style.fontSize=(22+Math.random()*10)+'px';
+    pd.appendChild(p);
+  }
+  var fd=document.getElementById('ecoFish');fd.innerHTML='';
+  for(var i=0;i<eco.f;i++){
+    var f=document.createElement('span');f.className='eco-fish';f.textContent='🐟';
+    f.style.left=(20+Math.random()*130)+'px';f.style.top=(40+Math.random()*80)+'px';
+    f.style.animationDelay=(Math.random()*3)+'s';fd.appendChild(f);
+  }
+  var bd=document.getElementById('ecoBubbles');bd.innerHTML='';
+  var bc=Math.max(0,eco.p*2-eco.f);
+  for(var i=0;i<bc;i++){
+    var b=document.createElement('span');b.textContent='○';
+    b.style.left=(30+Math.random()*140)+'px';b.style.bottom='20px';
+    b.style.animationDelay=(Math.random()*3)+'s';b.style.color='rgba(255,255,255,.5)';
+    bd.appendChild(b);
+  }
+  document.getElementById('epC').textContent=eco.p;
+  document.getElementById('efC').textContent=eco.f;
+  document.getElementById('ewL').textContent=['很少','较少','正常'][eco.w];
+  var msg=document.getElementById('ecoMsg');
+  var ox=eco.p*2,cs=eco.f*3;
+  if(eco.f===0&&eco.p===0) msg.textContent='😶 生态瓶里什么都没有...';
+  else if(eco.f===0) msg.textContent='🌿 只有植物，缺少动物，不算完整生态系统';
+  else if(eco.p===0) msg.textContent='⚠️ 没有植物！小鱼没有食物和氧气，会死亡！';
+  else if(cs>ox*1.5) msg.textContent='⚠️ 小鱼太多！氧气不够，频繁浮出水面，可能缺氧死亡！';
+  else if(eco.w===0) msg.textContent='⚠️ 水太少了！生存空间不足，小鱼频繁浮出水面！';
+  else if(eco.p>6) msg.textContent='⚠️ 植物太多会影响光照和动物活动空间！';
+  else if(ox>=cs) msg.textContent='✅ 生态平衡！植物提供充足氧气和食物，小鱼很健康！';
+  else msg.textContent='⚠️ 氧气有点不足，小鱼偶尔浮出水面呼吸';
+}
+
+// ========== SHIP BUILDER ==========
+var shipMat='steel';
+
+function chgMat(m){shipMat=m;updShip();}
+
+function updShip(){
+  var sz=parseInt(document.getElementById('sizeSlider').value);
+  var cg=parseInt(document.getElementById('cargoSlider').value);
+  var szL=['很小','小','中等','大','很大'];
+  document.getElementById('sizeLbl').textContent=szL[sz-1];
+  document.getElementById('cargoLbl').textContent=cg+' 箱';
+  var maxC={wood:[1,2,4,6,8],steel:[2,4,6,9,12],foil:[1,3,5,7,10]};
+  var mc=maxC[shipMat][sz-1];
+  var ship=document.getElementById('shipObj'),stat=document.getElementById('shipStat'),res=document.getElementById('shipResult');
+  var emj={wood:'⛵',steel:'🚢',foil:'🛶'};
+  ship.textContent=emj[shipMat];ship.style.fontSize=(30+sz*10)+'px';
+  var matN={wood:'木材',steel:'钢铁',foil:'铝箔'};
+  if(cg<=mc){
+    ship.style.top=(25+(cg/mc)*20)+'%';ship.classList.remove('sinking');
+    stat.textContent='✅ 漂浮中 | '+matN[shipMat]+'船 | 最大载重 '+mc+' 箱';stat.style.color='var(--u2d)';
+    res.innerHTML='船体积：'+szL[sz-1]+' | 载重：'+cg+'箱 / 最大'+mc+'箱<br>💡 体积越大，浮力越大，载重量越大！';res.style.background='#e3f2fd';
+  } else {
+    ship.classList.add('sinking');
+    stat.textContent='❌ 船沉了！超过最大载重 '+mc+' 箱！';stat.style.color='#c62828';
+    res.innerHTML='⚠️ 货物太重！重力 ＞ 浮力，船沉入水底。<br>试试增大船的体积，或减少货物。';res.style.background='#ffebee';
+  }
+}
+
+// ========== SUBMARINE ==========
+var balLvl=30;
+
+function adjBal(d){
+  if(d===0) balLvl=50;
+  else balLvl=Math.max(0,Math.min(100,balLvl+d));
+  var sub=document.getElementById('subIcon'),fill=document.getElementById('subFill'),stat=document.getElementById('subStat');
+  fill.style.width=balLvl+'%';
+  var depth,txt;
+  if(balLvl<40){depth=5+balLvl*.3;txt='🔼 上浮中（浮力 ＞ 重力）';}
+  else if(balLvl<=60){depth=40+(balLvl-40)*.5;txt='⚖️ 悬浮中（浮力 = 重力）';}
+  else{depth=50+(balLvl-60)*1;txt='🔽 下潜中（重力 ＞ 浮力）';}
+  sub.style.top=Math.min(depth,85)+'%';
+  stat.textContent=txt+' | 压载水: '+balLvl+'%';
+}
+
+// ========== TRASH SORT ==========
+var trashData=[
+  {n:'📰 废旧报纸',t:'可回收物'},{n:'🔋 废电池',t:'有害垃圾'},
+  {n:'🍎 苹果核',t:'厨余垃圾'},{n:'🧻 用过的纸巾',t:'其他垃圾'},
+  {n:'🥫 易拉罐',t:'可回收物'},{n:'💊 过期药品',t:'有害垃圾'},
+  {n:'🦴 鸡骨头',t:'厨余垃圾'},{n:'🚬 烟蒂',t:'其他垃圾'},
+  {n:'🍾 玻璃瓶',t:'可回收物'},{n:'🌡️ 碎温度计',t:'有害垃圾'},
+  {n:'🍌 香蕉皮',t:'厨余垃圾'},{n:'🧽 旧海绵',t:'其他垃圾'},
+  {n:'👕 旧衣服',t:'可回收物'},{n:'🎨 废油漆桶',t:'有害垃圾'},
+  {n:'🥚 蛋壳',t:'厨余垃圾'},{n:'🪥 旧牙刷',t:'其他垃圾'},
+  {n:'📦 纸箱',t:'可回收物'},{n:'💡 废灯管',t:'有害垃圾'},
+  {n:'🍚 剩饭',t:'厨余垃圾'},{n:'🏺 碎花盆',t:'其他垃圾'}
+];
+var tQ=[],tSc=0,tIdx=0;
+
+function initTrash(){
+  tQ=[].concat(trashData).sort(function(){return Math.random()-.5}).slice(0,12);
+  tSc=0;tIdx=0;
+  document.getElementById('tScore').textContent='0';
+  document.getElementById('tTotal').textContent=tQ.length;
+  document.getElementById('tResult').textContent='把上面的垃圾分到正确的桶里！';
+  document.getElementById('tResult').style.background='#f0f8f0';
+  showTItem();
+}
+
+function showTItem(){
+  if(tIdx>=tQ.length){
+    document.getElementById('tItem').textContent='🎉 完成！';
+    var r=document.getElementById('tResult');
+    r.innerHTML='最终得分：<strong>'+tSc+'/'+tQ.length+'</strong>'+(tSc===tQ.length?' 🏆 满分！垃圾分类达人！':tSc>=tQ.length*.7?' 👍 不错哦，继续加油！':' 💪 再练练就更棒了！');
+    r.style.background=tSc>=tQ.length*.7?'#e8f5e9':'#fff3e0';
+    return;
+  }
+  var el=document.getElementById('tItem');
+  el.textContent=tQ[tIdx].n;el.className='trash-item';
+}
+
+function sortT(bin){
+  if(tIdx>=tQ.length) return;
+  var item=tQ[tIdx],el=document.getElementById('tItem'),r=document.getElementById('tResult');
+  if(bin===item.t){
+    tSc++;el.classList.add('correct');
+    r.innerHTML='✅ 正确！<strong>'+item.n+'</strong> 属于 <strong>'+item.t+'</strong>';r.style.background='#e8f5e9';
+  } else {
+    el.classList.add('wrong');
+    r.innerHTML='❌ 不对哦！<strong>'+item.n+'</strong> 应该放到 <strong>'+item.t+'</strong>';r.style.background='#ffebee';
+  }
+  document.getElementById('tScore').textContent=tSc;
+  tIdx++;setTimeout(showTItem,1200);
+}
+
+// ========== WATER CYCLE ==========
+function playWC(){
+  var cloud=document.getElementById('wcCloud');
+  cloud.classList.remove('visible');
+  setTimeout(function(){cloud.classList.add('visible');},800);
+  setTimeout(function(){
+    var rd=document.getElementById('rainDrops');rd.innerHTML='';
+    for(var i=0;i<15;i++){
+      var d=document.createElement('span');d.className='rain-drop';d.textContent='💧';
+      d.style.left=(25+Math.random()*45)+'%';d.style.top='22%';
+      d.style.animationDelay=(Math.random()*2.5)+'s';rd.appendChild(d);
+    }
+    setTimeout(function(){rd.innerHTML='';cloud.classList.remove('visible');},5000);
+  },2200);
+}
+
+// ========== HEAT RACE ==========
+var heatInt;
+
+function startHeat(){
+  resetHeat();
+  var mH=0,wH=0,pH=0;
+  heatInt=setInterval(function(){
+    mH=Math.min(100,mH+7);wH=Math.min(100,wH+1.8);pH=Math.min(100,pH+2.2);
+    document.getElementById('hMetal').style.height=mH+'%';
+    document.getElementById('hWood').style.height=wH+'%';
+    document.getElementById('hPlastic').style.height=pH+'%';
+    document.getElementById('tMetal').textContent=Math.round(25+mH*.65)+'°C';
+    document.getElementById('tWood').textContent=Math.round(25+wH*.65)+'°C';
+    document.getElementById('tPlastic').textContent=Math.round(25+pH*.65)+'°C';
+    if(mH>=100&&wH<50){
+      document.getElementById('heatResult').innerHTML='🏆 <strong>金属勺最先变热！</strong>金属是热的<strong>良导体</strong>，传热最快。<br>木勺和塑料勺是热的<strong>不良导体</strong>，传热很慢。这就是锅用金属做、锅柄用塑料做的原因！';
+      document.getElementById('heatResult').style.background='#ffebee';
+    }
+    if(wH>=100) clearInterval(heatInt);
+  },300);
+}
+
+function resetHeat(){
+  clearInterval(heatInt);
+  ['hMetal','hWood','hPlastic'].forEach(function(id){document.getElementById(id).style.height='0'});
+  document.getElementById('tMetal').textContent='25°C';
+  document.getElementById('tWood').textContent='25°C';
+  document.getElementById('tPlastic').textContent='25°C';
+  var r=document.getElementById('heatResult');r.innerHTML='点击开始加热，观察哪种勺子传热最快';r.style.background='#f0f8f0';
+}
+
+// ========== QUIZ ==========
+var quizData=[
+  {q:'1. 种子发芽需要的条件不包括以下哪一个？',o:['适量的水','适宜的温度','充足的空气','土壤'],a:3,e:'种子发芽需要适量的水、适宜温度和充足空气，不需要阳光和土壤。'},
+  {q:'2. 对比实验中，可以同时改变几个条件？',o:['零个','一个','两个','随意'],a:1,e:'对比实验只能改变一个条件，其他条件必须保持相同，才能确定该条件对结果的影响。'},
+  {q:'3. 蚯蚓喜欢什么样的环境？',o:['干燥明亮','潮湿明亮','干燥阴暗','潮湿阴暗'],a:3,e:'蚯蚓喜欢生活在阴暗、潮湿的环境里。实验时蚯蚓会爬向暗处和湿土。'},
+  {q:'4. 食物链通常从什么开始？',o:['肉食动物','草食动物','绿色植物','细菌'],a:2,e:'食物链通常从绿色植物开始，到凶猛的肉食动物终止。箭头表示"被吃"方向。'},
+  {q:'5. 以下哪个是正确的食物链？',o:['小鸟→蚜虫→绿豆苗','绿豆苗→蚜虫→瓢虫→小鸟','瓢虫→蚜虫→绿豆苗','小鸟→瓢虫→蚜虫'],a:1,e:'箭头表示"被吃"方向：绿豆苗被蚜虫吃，蚜虫被瓢虫吃，瓢虫被小鸟吃。'},
+  {q:'6. 增加生态瓶中植物数量后，小鱼浮出水面的次数会？',o:['增多','减少','不变','先多后少'],a:1,e:'植物增多→产生更多氧气→水中氧气充足→小鱼浮出水面次数减少。'},
+  {q:'7. 青蛙冬眠主要是为了适应什么变化？',o:['水分变化','光照变化','气候和食物变化','地形变化'],a:2,e:'冬季气温降低、昆虫休眠导致食物减少，青蛙冬眠是为了适应气候和食物变化。'},
+  {q:'8. 沉的材料（如铝箔）做成什么形状可以浮起来？',o:['实心球形','扁平片状','中空船型','长条形'],a:2,e:'把沉的材料做成中空船型→增大体积→增大浮力→可以漂浮在水面上。'},
+  {q:'9. 潜艇要下潜需要怎么做？',o:['排出压载水','注入压载水','加速前进','关闭引擎'],a:1,e:'注水→自身重量增大→重力＞浮力→下潜。排水则反之，潜艇上浮。'},
+  {q:'10. 船的体积越大，载重量会？',o:['越小','不变','越大','无法判断'],a:2,e:'体积越大→浸入水中的体积越大→受到的浮力越大→载重量越大。'},
+  {q:'11. 工程设计的正确流程是？',o:['制作→设计→测试','问题→设计→制作→测试→完善','设计→问题→完善','测试→制作→设计'],a:1,e:'工程设计一般经历：问题→设计→制作→测试→完善。'},
+  {q:'12. 龙骨结构是哪个国家古代的发明？',o:['英国','中国','希腊','埃及'],a:1,e:'船底的龙骨结构是中国古代的重大发明，使船更坚固、抵御风浪能力增强。'},
+  {q:'13. 地球上淡水占全部水资源的多少？',o:['25%','10%','2.5%','50%'],a:2,e:'地球上水资源总量巨大，但淡水仅占2.5%，其中大部分还是冰川和地下水。'},
+  {q:'14. 生活垃圾分为哪四类？',o:['可回收物、有害、厨余、其他','塑料、金属、纸、玻璃','干垃圾、湿垃圾、大件、小件','食物、工业、医疗、建筑'],a:0,e:'生活垃圾分为：可回收物、有害垃圾、厨余垃圾、其他垃圾四类。'},
+  {q:'15. 温室效应主要与哪种气体有关？',o:['氧气','氮气','二氧化碳','氢气'],a:2,e:'过度燃烧化石能源→大气中CO₂增多→地表气温上升→温室效应。'},
+  {q:'16. 废电池应该扔到哪个垃圾桶？',o:['可回收物','有害垃圾','厨余垃圾','其他垃圾'],a:1,e:'废电池含有汞、铅等有毒物质，属于有害垃圾。'},
+  {q:'17. 热的三种传递方式分别是？',o:['蒸发、沸腾、凝结','传导、对流、辐射','升温、降温、恒温','固体、液体、气体'],a:1,e:'热的三种传递方式：热传导（接触传热）、热对流（液体气体循环）、热辐射（不需介质）。'},
+  {q:'18. 以下哪种材料传热最快？',o:['木头','塑料','金属','棉花'],a:2,e:'金属是热的良导体，传热最快。木头、塑料、棉花都是热的不良导体。'},
+  {q:'19. 水的沸点是多少？',o:['50°C','80°C','100°C','120°C'],a:2,e:'一般情况下，水在100°C时沸腾。沸腾时气泡在上升过程中由小变大。'},
+  {q:'20. 保温瓶内壁镀银主要是为了减少哪种传热？',o:['热传导','热对流','热辐射','所有传热'],a:2,e:'镀银面能反射热辐射，减少热量散失。木塞减少热传导和热对流。'},
+  {q:'21. 中国人均水资源约为世界平均水平的多少？',o:['1/2','1/4','1/8','1/10'],a:1,e:'中国人均水资源仅为世界平均水平的1/4，属于轻度缺水国家。'},
+  {q:'22. 以下哪种是可再生能源？',o:['煤','石油','天然气','太阳能'],a:3,e:'煤、石油、天然气都是不可再生的化石燃料。太阳能、风能、水能是可再生能源。'},
+  {q:'23. 大气层对地球的作用像什么？',o:['一面镜子','一张毛毯','一把雨伞','一堵墙'],a:1,e:'大气就像盖在地球表面的一张毛毯，使地表平均气温保持在约15°C，适宜生命存在。'},
+  {q:'24. 水沸腾时，气泡在上升过程中会怎样变化？',o:['由大变小','由小变大','大小不变','消失'],a:1,e:'沸腾前气泡由大变小，沸腾时气泡由小变大。这是常考的区分点！'},
+  {q:'25. 光合作用中，植物吸收什么释放什么？',o:['吸收O₂释放CO₂','吸收CO₂释放O₂','吸收N₂释放O₂','吸收水释放CO₂'],a:1,e:'光合作用：植物在光照下吸收二氧化碳和水，制造养料并释放氧气。'}
+];
+
+var qIdx=0,qScore=0,qAnswered=false;
+
+function initQuiz(){
+  quizData.sort(function(){return Math.random()-.5});
+  qIdx=0;qScore=0;
+  document.getElementById('quizCard').style.display='block';
+  document.getElementById('quizResult').style.display='none';
+  renderQuiz();
+}
+
+function renderQuiz(){
+  qAnswered=false;
+  document.getElementById('nextQBtn').disabled=true;
+  // progress
+  var pg=document.getElementById('quizProgress');pg.innerHTML='';
+  for(var i=0;i<quizData.length;i++){
+    var d=document.createElement('div');d.className='quiz-dot';
+    if(i===qIdx) d.classList.add('current');
+    pg.appendChild(d);
+  }
+  var item=quizData[qIdx];
+  document.getElementById('quizQ').textContent=item.q;
+  var opts=document.getElementById('quizOpts');opts.innerHTML='';
+  item.o.forEach(function(o,i){
+    var div=document.createElement('div');
+    div.className='quiz-opt';
+    div.textContent=String.fromCharCode(65+i)+'. '+o;
+    div.onclick=function(){answerQuiz(i);};
+    opts.appendChild(div);
+  });
+  var exp=document.getElementById('quizExp');exp.className='quiz-exp';exp.textContent='';
+}
+
+function answerQuiz(idx){
+  if(qAnswered) return;qAnswered=true;
+  var item=quizData[qIdx],opts=document.querySelectorAll('.quiz-opt');
+  opts.forEach(function(o,i){
+    o.classList.add('disabled');
+    if(i===item.a) o.classList.add('correct');
+    if(i===idx&&idx!==item.a) o.classList.add('wrong');
+  });
+  if(idx===item.a) qScore++;
+  var dots=document.querySelectorAll('.quiz-dot');
+  dots[qIdx].classList.remove('current');
+  dots[qIdx].classList.add(idx===item.a?'correct':'wrong');
+  var exp=document.getElementById('quizExp');
+  exp.textContent=(idx===item.a?'✅ 回答正确！':'❌ 回答错误！正确答案是 '+String.fromCharCode(65+item.a)+'。')+' '+item.e;
+  exp.classList.add('show');
+  document.getElementById('nextQBtn').disabled=false;
+  if(qIdx>=quizData.length-1) document.getElementById('nextQBtn').textContent='查看成绩 🎉';
+}
+
+function nextQuiz(){
+  qIdx++;
+  if(qIdx>=quizData.length){
+    document.getElementById('quizCard').style.display='none';
+    document.getElementById('quizResult').style.display='block';
+    var pct=Math.round(qScore/quizData.length*100);
+    document.getElementById('finalScore').textContent=qScore+' / '+quizData.length;
+    var msg=pct===100?'🏆 满分！你是科学小天才！':pct>=80?'🌟 非常优秀！继续保持！':pct>=60?'👍 还不错，再复习一下薄弱知识点！':'💪 加油！多看看知识点卡片再来挑战！';
+    document.getElementById('finalMsg').textContent=msg;
+  } else {
+    document.getElementById('nextQBtn').textContent='下一题 →';
+    renderQuiz();
+  }
+}
+
+function resetQuiz(){initQuiz();}
+</script>
+</body>
+</html>
